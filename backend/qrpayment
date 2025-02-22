@@ -1,7 +1,8 @@
-
 const QRCode = require('qrcode');
 
-QRCode.toFile('qrcode.png', 'Hello, this is my QR code!', (err) => {
+const imageUrl = 'https://bit.ly/4hL5pXh'; // Shortened URL that redirects to the image
+
+QRCode.toFile('qrcode.png', imageUrl, (err) => {
     if (err) throw err;
-    console.log('QR Code generated successfully!');
+    console.log('QR Code linking to the image successfully generated!');
 });

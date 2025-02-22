@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Parking System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        #qrcode-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #qrcode {
+            margin-top: 20px;
+        }
+
+        /* Popup Background */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Popup Box */
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Car Icon */
+        .car-icon {
+            font-size: 50px;
+            color: #4CAF50;
+            animation: bounce 1s infinite;
+        }
+
+        /* Text */
+        .message {
+            font-size: 16px;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        /* Close Button */
+        .close-btn {
+            margin-top: 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Animations */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>QR Scan Me</h2>
+    <div id="qrcode-container">
+        <div id="qrcode"></div>
+    </div>
+
+    <!-- First Popup (Searching for Slot) -->
+    <div id="qrModal1" class="modal">
+        <div class="modal-content">
+            <i class="fa-solid fa-car car-icon"></i>
+            <p class="message">Hold on, we are searching a parking slot for you...</p>
+        </div>
+    </div>
+
+    <!-- Second Popup (Parking Spot Found) -->
+    <div id="qrModal2" class="modal">
+        <div class="modal-content">
+            <p class="message">Yay! You got a parking spot 😊</p>
+            <button class="close-btn" onclick="parkVehicle()">Park My Vehicle</button>
+        </div>
+    </div>
+
+    <script>
+        // Generate QR Code
+        var data = "thank you for scaning"; // Replace with actual URL
+        var qr = new QRCode(document.getElementById("qrcode"), {
+            text: data,
+            width: 200,
+            height: 200
+        });
+
+        console.log("QR code generated successfully");
+
+        // Show first popup after 3 seconds
+        setTimeout(() => {
+            document.getElementById("qrModal1").style.display = "flex";
+
+            // Close first popup after 3 sec & show second popup
+            setTimeout(() => {
+                document.getElementById("qrModal1").style.display = "none";
+                document.getElementById("qrModal2").style.display = "flex";
+            }, 3000);
+
+        }, 3000);
+
+        // Park Vehicle Button Click
+        function parkVehicle() {
+            alert("🚗 Vehicle Parked Successfully!");
+            document.getElementById("qrModal2").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
