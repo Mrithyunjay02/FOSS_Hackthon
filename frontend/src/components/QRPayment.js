@@ -1,0 +1,7 @@
+
+const QRCode = require('qrcode');
+
+QRCode.toFile('qrcode.png', 'Hello, this is my QR code!', (err) => {
+    if (err) throw err;
+    console.log('QR Code generated successfully!');
+});
